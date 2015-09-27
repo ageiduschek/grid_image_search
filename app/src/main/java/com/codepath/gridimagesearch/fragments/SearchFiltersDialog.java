@@ -79,10 +79,6 @@ public class SearchFiltersDialog extends DialogFragment {
         final Spinner spinnerColorization = initializeSpinnerWithEnum(dialog, R.id.spinnerColorization,
                 FilterModel.Colorization.class, mFilters.getColorization());
 
-
-        final Spinner spinnerDominantColor = initializeSpinnerWithEnum(dialog, R.id.spinnerDominantColor,
-                FilterModel.DominantColor.class, mFilters.getDominantColor());
-
         final Spinner spinnerImageSize = initializeSpinnerWithEnum(dialog, R.id.spinnerImageSize,
                 FilterModel.ImageSize.class, mFilters.getSize());
 
@@ -97,7 +93,6 @@ public class SearchFiltersDialog extends DialogFragment {
             public void onClick(View v) {
                 mFilters.setFileType((FilterModel.FileType) spinnerFileType.getSelectedItem());
                 mFilters.setColorization((FilterModel.Colorization) spinnerColorization.getSelectedItem());
-                mFilters.setDominantColor((FilterModel.DominantColor) spinnerDominantColor.getSelectedItem());
                 mFilters.setSize((FilterModel.ImageSize) spinnerImageSize.getSelectedItem());
                 mFilters.setSafetyLevel((FilterModel.SafetyLevel) spinnerSafetyLevel.getSelectedItem());
                 mFilters.setSite(etSite.getText().toString());

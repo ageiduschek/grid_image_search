@@ -42,7 +42,6 @@ public class ImageResultAdapter extends ArrayAdapter<ImageResultModel> {
             subviews = new ImageResultViews();
 
             subviews.ivImage = (ImageView) convertView.findViewById(R.id.ivImage);
-            subviews.tvImageTitle = (TextView) convertView.findViewById(R.id.tvImageTitle);
 
             convertView.setTag(subviews);
         } else {
@@ -51,8 +50,8 @@ public class ImageResultAdapter extends ArrayAdapter<ImageResultModel> {
 
         // Clear out old image
         subviews.ivImage.setImageResource(0);
+        subviews.ivImage.setContentDescription(imageInfo.getTitle());
 
-        subviews.tvImageTitle.setText(Html.fromHtml(imageInfo.getTitle()));
         Picasso.with(getContext()).load(imageInfo.getThumbURL()).into(subviews.ivImage);
 
         return convertView;

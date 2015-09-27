@@ -35,29 +35,6 @@ public class FilterModel implements Parcelable {
         }
     }
 
-    public enum DominantColor {
-        NO_FILTER, BLACK, BLUE, BROWN, GRAY, GREEN, ORANGE, PINK, PURPLE, RED, TEAL, WHITE, YELLOW;
-
-        public String toString() {
-            switch (this) {
-                case NO_FILTER: return "No Filter";
-                case BLACK: return "black";
-                case BLUE: return "blue";
-                case BROWN: return "brown";
-                case GRAY: return "gray";
-                case GREEN: return "green";
-                case ORANGE: return "orange";
-                case PINK: return "pink";
-                case PURPLE: return "purple";
-                case RED: return "red";
-                case TEAL: return "teal";
-                case WHITE: return "white";
-                case YELLOW: return "yellow";
-                default: throw new IllegalArgumentException();
-            }
-        }
-    }
-
     // TODO: Support larger sizes?
     public enum ImageSize {
         NO_FILTER, ICON, SMALL, MEDIUM, LARGE;
@@ -90,7 +67,6 @@ public class FilterModel implements Parcelable {
     private FileType fileType;
     private String site;
     private Colorization colorization;
-    private DominantColor dominantColor;
     private ImageSize size;
     private SafetyLevel safetyLevel;
 
@@ -99,7 +75,6 @@ public class FilterModel implements Parcelable {
         fileType = FileType.NO_FILTER;
         site = null;
         colorization = Colorization.NO_FILTER;
-        dominantColor = DominantColor.NO_FILTER;
         size = ImageSize.NO_FILTER;
         safetyLevel = SafetyLevel.OFF;
     }
@@ -133,14 +108,6 @@ public class FilterModel implements Parcelable {
         this.colorization = colorization;
     }
 
-    public DominantColor getDominantColor() {
-        return dominantColor;
-    }
-
-    public void setDominantColor(DominantColor dominantColor) {
-        this.dominantColor = dominantColor;
-    }
-
     public ImageSize getSize() {
         return size;
     }
@@ -162,7 +129,6 @@ public class FilterModel implements Parcelable {
         dest.writeInt(this.fileType == null ? -1 : this.fileType.ordinal());
         dest.writeString(this.site);
         dest.writeInt(this.colorization == null ? -1 : this.colorization.ordinal());
-        dest.writeInt(this.dominantColor == null ? -1 : this.dominantColor.ordinal());
         dest.writeInt(this.size == null ? -1 : this.size.ordinal());
         dest.writeInt(this.safetyLevel == null ? -1 : this.safetyLevel.ordinal());
     }
@@ -173,8 +139,6 @@ public class FilterModel implements Parcelable {
         this.site = in.readString();
         int tmpColorization = in.readInt();
         this.colorization = tmpColorization == -1 ? null : Colorization.values()[tmpColorization];
-        int tmpDominantColor = in.readInt();
-        this.dominantColor = tmpDominantColor == -1 ? null : DominantColor.values()[tmpDominantColor];
         int tmpSize = in.readInt();
         this.size = tmpSize == -1 ? null : ImageSize.values()[tmpSize];
         int tmpSafetyLevel = in.readInt();

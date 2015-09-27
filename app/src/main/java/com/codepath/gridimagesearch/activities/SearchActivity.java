@@ -2,20 +2,20 @@ package com.codepath.gridimagesearch.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import com.codepath.gridimagesearch.adapters.ImageResultAdapter;
@@ -24,6 +24,7 @@ import com.codepath.gridimagesearch.helpers.EndlessScrollListener;
 import com.codepath.gridimagesearch.models.FilterModel;
 import com.codepath.gridimagesearch.models.ImageResultModel;
 import com.codepath.gridimagesearch.R;
+import com.etsy.android.grid.StaggeredGridView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -36,7 +37,7 @@ import java.util.ArrayList;
 public class SearchActivity extends AppCompatActivity implements SearchFiltersDialog.OnSearchFiltersActionListener {
     private static final int PAGE_SIZE = 8;
     private SearchView mSearchView;
-    private GridView gvResults;
+    private StaggeredGridView gvResults;
     private FilterModel mSearchFilters = new FilterModel();
 
     private ImageResultAdapter mImageResultsAdapter;
@@ -46,7 +47,7 @@ public class SearchActivity extends AppCompatActivity implements SearchFiltersDi
     private String mCurrentQuery = "";
 
     private void setupViews() {
-        gvResults = (GridView) findViewById(R.id.gvResults);
+        gvResults = (StaggeredGridView) findViewById(R.id.gvResults);
 
         gvResults.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -134,6 +135,11 @@ public class SearchActivity extends AppCompatActivity implements SearchFiltersDi
     }
 
     private void fetchQueryResults(final int page) {
+        if (!isNetworkAvailable()) {
+            Toast.makeText(this, R.string.trouble_connecting_to_network, Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if (page == 0) {
             mImageResultsAdapter.clear(); // Clear in cases where this is a new search
         }
@@ -159,10 +165,6 @@ public class SearchActivity extends AppCompatActivity implements SearchFiltersDi
 
         if (mSearchFilters.getColorization() != FilterModel.Colorization.NO_FILTER) {
             builder.appendQueryParameter("imgc", mSearchFilters.getColorization().toString());
-        }
-
-        if (mSearchFilters.getDominantColor() != FilterModel.DominantColor.NO_FILTER) {
-            builder.appendQueryParameter("imgcolor", mSearchFilters.getDominantColor().toString());
         }
 
         if (mSearchFilters.getSize() != FilterModel.ImageSize.NO_FILTER) {
@@ -204,10 +206,17 @@ public class SearchActivity extends AppCompatActivity implements SearchFiltersDi
                 }
 
                 // TODO: Handle failure here
-                Toast.makeText(getApplicationContext(), "Image retreival failure: " + statusCode, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.network_error, Toast.LENGTH_SHORT).show();
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
     public void onFiltersSave(FilterModel filters) {
