@@ -109,6 +109,7 @@ public class LightboxActivity extends AppCompatActivity {
         Picasso.with(this)
                 .load(imageInfo.getImageURL())
                 .fit()
+                .centerInside()
                 .into(ivImage);
 
         setupImmersiveMode();
