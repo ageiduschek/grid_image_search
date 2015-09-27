@@ -1,0 +1,102 @@
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:useDefaultMargins="true"
+                android:alignmentMode="alignBounds"
+                android:columnOrderPreserved="false"
+                android:columnCount="2"
+                android:padding="8dp"
+                tools:context="com.codepath.gridimagesearch.fragments.SearchFiltersDialog">
+
+    <!-- Spinner list values filled programatically -->
+
+    <TextView
+        android:id="@+id/tvFileType"
+        android:layout_row="0"
+        android:layout_column="0"
+        android:text="@string/file_type"
+        />
+
+    <Spinner
+        android:id="@+id/spinnerFileType"
+        android:layout_row="0"
+        android:layout_column="1"
+        android:layout_gravity="fill_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/tvColorization"
+        android:layout_row="1"
+        android:layout_column="0"
+        android:text="@string/colorization"/>
+
+    <Spinner
+        android:id="@+id/spinnerColorization"
+        android:layout_row="1"
+        android:layout_column="1"
+        android:layout_gravity="fill_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/tvDominantColor"
+        android:layout_row="2"
+        android:layout_column="0"
+        android:text="@string/color"/>
+
+    <Spinner
+        android:id="@+id/spinnerDominantColor"
+        android:layout_row="2"
+        android:layout_column="1"
+        android:layout_gravity="fill_horizontal"
+        />
+
+
+    <TextView
+        android:id="@+id/tvImageSize"
+        android:layout_row="3"
+        android:layout_column="0"
+        android:text="@string/image_size"/>
+
+    <Spinner
+        android:id="@+id/spinnerImageSize"
+        android:layout_row="3"
+        android:layout_column="1"
+        android:layout_gravity="fill_horizontal"
+        />
+
+
+    <TextView
+        android:id="@+id/tvSafetyLevel"
+        android:layout_row="4"
+        android:layout_column="0"
+        android:text="@string/safe_search_level"/>
+
+    <Spinner
+        android:id="@+id/spinnerSafetyLevel"
+        android:layout_row="4"
+        android:layout_column="1"
+        android:layout_gravity="fill_horizontal"
+        />
+
+
+    <TextView
+        android:id="@+id/tvSite"
+        android:layout_row="5"
+        android:layout_column="0"
+        android:text="@string/site"/>
+
+    <EditText
+        android:id="@+id/etSite"
+        android:layout_row="5"
+        android:layout_column="1"
+        android:layout_gravity="fill_horizontal"
+        android:inputType="textWebEditText"/>
+
+    <Button
+        android:id="@+id/btnSave"
+        android:text="@string/save"
+        android:layout_row="6"
+        android:layout_column="1"
+        android:layout_gravity="end"/>
+</GridLayout>

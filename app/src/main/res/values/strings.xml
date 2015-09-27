@@ -1,8 +1,17 @@
 <resources>
-    <string name="app_name">GridImageSearch</string>
+    <string name="app_name">Image Search</string>
 
     <string name="action_settings">Settings</string>
     <string name="search">Search</string>
     <string name="search_bar_hint">Enter search query</string>
     <string name="title_activity_lightbox">LightboxActivity</string>
+    <string name="save">Save</string>
+    <string name="file_type">File type</string>
+    <string name="colorization">Colorization</string>
+    <string name="color">Color</string>
+    <string name="image_size">Image Size</string>
+    <string name="safe_search_level">Safe Search Level</string>
+    <string name="filter">Filter</string>
+    <string name="filter_title">Search Filter Preferences</string>
+    <string name="site">Site</string>
 </resources>
